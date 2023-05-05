@@ -61,17 +61,19 @@ def CB(a_channel, b_channel, window_size = 25):
 	
 	return a_channel, b_channel;
 
-import cv2
-sample = cv2.imread('images6.jpg')
-img_lab = cv2.cvtColor(sample, cv2.COLOR_BGR2LAB)
 
-a_enhance, b_enhance = CB(img_lab[:,:,1], img_lab[:,:,2], window_size = 25)
-img_lab[:,:,0] = LCE(img_lab[:,:,0], window_size = 25, beta = 2);
-img_lab[:,:,1] = a_enhance;
-img_lab[:,:,2] = b_enhance;
+if __name__ == "__main__":
+	import cv2
+	sample = cv2.imread('images6.jpg')
+	img_lab = cv2.cvtColor(sample, cv2.COLOR_BGR2LAB)
 
-result = cv2.cvtColor(img_lab, cv2.COLOR_LAB2BGR)
+	a_enhance, b_enhance = CB(img_lab[:,:,1], img_lab[:,:,2], window_size = 25)
+	img_lab[:,:,0] = LCE(img_lab[:,:,0], window_size = 25, beta = 2);
+	img_lab[:,:,1] = a_enhance;
+	img_lab[:,:,2] = b_enhance;
 
-cv2.imshow("result", result)
-if(cv2.waitKey(0)==27):
-	cv2.destroyAllWindows()
+	result = cv2.cvtColor(img_lab, cv2.COLOR_LAB2BGR)
+
+	cv2.imshow("result", result)
+	if(cv2.waitKey(0)==27):
+		cv2.destroyAllWindows()

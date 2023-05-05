@@ -11,9 +11,11 @@ def getimg():
   open the image file, and return it
   """
   parser = argparse.ArgumentParser()
-  parser.add_argument("filename")
-  filename = parser.parse_args().filename
-  return cv2.imread(filename), filename
+  parser.add_argument("inputimg")
+  parser.add_argument("outputimg")
+  inputname = "./testcase/" + parser.parse_args().inputimg
+  outputname = "./result/" + parser.parse_args().outputimg
+  return cv2.imread(inputname), outputname
 
 def MLLE(write_mode=False):
   img, filename = getimg()
@@ -22,7 +24,7 @@ def MLLE(write_mode=False):
   l_channel, a_channel, b_channel = cv2.split(cv2.cvtColor(img_cr, cv2.COLOR_BGR2LAB))
   l_enhance = LCE(l_channel.copy())
   a_enhance, b_enhance = CB(a_channel.copy(), b_channel.copy())
-  img_final = cv2.cvtColor(cv2.merge([l_enhance, a_enhance, b_enhance]), cv2.COLOR_LAB2BGR)
+  img_final = cv2.cvtColor(cv2.merge([l_enhance.astype(np.uint8), a_enhance.astype(np.uint8), b_enhance.astype(np.uint8)]), cv2.COLOR_LAB2BGR)
   if write_mode:
     cv2.imwrite(f"{filename}_ct.png", img_ct)
     cv2.imwrite(f"{filename}_cr.png", img_cr)

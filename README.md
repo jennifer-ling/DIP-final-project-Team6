@@ -3,13 +3,14 @@ DIP final project
 
 Usage:
 
-`<imgname>` is required arugment. For example: `sample.png`
+`<input_imgname>` and `<output_imgname>` is required arugment. For example: `sample.png` for `<input_imgname>`, and `test` for `<output_imgname>` (no file extentesion needed)
+By default, the program will open `./testcase/<input_imgname>` and output image as `./result/<output_imgname>`
 
-1. debug mode (save img file during the process)
+1. debug mode (save img files during the process)
   ```
-  python MLLE.py <imgname>
+  python MLLE.py <input_imgname> <output_imgname>
   ```
 2. testing mode (compute benchmark, and only save the final result) 
   ```
-  python test.py <imgname>
+  python test.py <input_imgname> <output_imgname>
   ```
