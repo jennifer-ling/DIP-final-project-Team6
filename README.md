@@ -1,16 +1,19 @@
 # DIP-final-project-Team6
 DIP final project
 
-Usage:
+## Parameters
+* `<input_imgname>` and `<output_imgname>` is required arugment. 
 
-`<input_imgname>` and `<output_imgname>` is required arugment. For example: `sample.png` for `<input_imgname>`, and `test` for `<output_imgname>` (no file extentesion needed)
-By default, the program will open `./testcase/<input_imgname>` and output image as `./result/<output_imgname>`
+* For example: `sample.png` for `<input_imgname>`, and `test` for `<output_imgname>` (no file extentesion needed)
 
-1. debug mode (save img files during the process)
+* By default, the program will open `./testcase/<input_imgname>` and output image as `./result/<output_imgname>.png`
+
+## Usage
+* debug mode (save img files during the process)
   ```
   python MLLE.py <input_imgname> <output_imgname>
   ```
-2. testing mode (compute benchmark, and only save the final result) 
+* testing mode (compute benchmark, and only save the final result) 
   ```
   python test.py <input_imgname> <output_imgname>
   ```
