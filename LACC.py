@@ -15,10 +15,11 @@ def MCLP(img):
     # Define the color channels of the largest mean value, medium mean value, and smallest mean value
     color_means = {"B": mean_B, "G": mean_G, "R": mean_R}
     sorted_colors = sorted(color_means.items(), key=lambda x: x[1])
-    I_s, I_m, I_l = sorted_colors[0][0], sorted_colors[1][0], sorted_colors[2][0]    
+    I_s, I_m, I_l = locals()[sorted_colors[0][0]], locals()[sorted_colors[1][0]], locals()[sorted_colors[2][0]]   
   
     # Apply the color correction
-    I_l_cr = 255 * (I_l - np.min(I_l, axis=(0, 1))) / (np.max(I_l, axis=(0, 1)) - np.min(I_l, axis=(0, 1)))
+    I_l_cr = 255 * (I_l - np.min(I_l)) / (np.max(I_l) - np.min(I_l))
+
 
 
     while True:
