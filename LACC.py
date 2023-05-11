@@ -52,8 +52,4 @@ def MAMGF(img_origin, img_ct):
     D = img_origin - cv2.GaussianBlur(img_origin, (3, 3), 0)
     I_cc = D + A_max_M[..., None] * img_ct + (1 - A_max_M[..., None]) * img_origin
     
-    return I_cc.astype(np.uint8)
-  
-  
-  
-  return img_origin
+    return I_cc.astype(np.uint8)  
