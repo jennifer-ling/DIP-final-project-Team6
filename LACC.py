@@ -18,7 +18,8 @@ def MCLP(img):
     I_s, I_m, I_l = sorted_colors[0][0], sorted_colors[1][0], sorted_colors[2][0]    
   
     # Apply the color correction
-    I_l_cr = 255 * (I_l - np.min(I_l)) / (np.max(I_l) - np.min(I_l))
+    I_l_cr = 255 * (I_l - np.min(I_l, axis=(0, 1))) / (np.max(I_l, axis=(0, 1)) - np.min(I_l, axis=(0, 1)))
+
 
     while True:
         I_m_cr = I_m + (np.mean(I_l) - np.mean(I_m)) * I_l
