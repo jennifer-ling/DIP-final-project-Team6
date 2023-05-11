@@ -13,9 +13,33 @@ def MCLP(img):
     mean_B, mean_G, mean_R = np.mean(B), np.mean(G), np.mean(R)
     
     # Define the color channels of the largest mean value, medium mean value, and smallest mean value
-    color_means = {"B": mean_B, "G": mean_G, "R": mean_R}
-    sorted_colors = sorted(color_means.items(), key=lambda x: x[1])
-    I_s, I_m, I_l = locals()[sorted_colors[0][0]], locals()[sorted_colors[1][0]], locals()[sorted_colors[2][0]]   
+color_means = {"B": mean_B, "G": mean_G, "R": mean_R}
+sorted_colors = sorted(color_means.items(), key=lambda x: x[1])
+I_s, I_m, I_l = None, None, None
+
+for idx, (color, mean) in enumerate(sorted_colors):
+    if idx == 0:  # Smallest mean value
+        if color == "B":
+            I_s = B
+        elif color == "G":
+            I_s = G
+        else:
+            I_s = R
+    elif idx == 1:  # Medium mean value
+        if color == "B":
+            I_m = B
+        elif color == "G":
+            I_m = G
+        else:
+            I_m = R
+    else:  # Largest mean value
+        if color == "B":
+            I_l = B
+        elif color == "G":
+            I_l = G
+        else:
+            I_l = R
+   
   
     # Apply the color correction
     I_l_cr = 255 * (I_l - np.min(I_l)) / (np.max(I_l) - np.min(I_l))
