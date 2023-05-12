@@ -12,7 +12,7 @@ def MCLP(img):
     B, G, R = cv2.split(img)
     mean_B, mean_G, mean_R = np.mean(B), np.mean(G), np.mean(R)
     
-    # Define the color channels of the largest mean value, medium mean value, and smallest mean value
+  # Define the color channels of the largest mean value, medium mean value, and smallest mean value
     color_means = {"B": mean_B, "G": mean_G, "R": mean_R}
     sorted_colors = sorted(color_means.items(), key=lambda x: x[1])
     I_s, I_m, I_l = None, None, None
@@ -41,7 +41,7 @@ def MCLP(img):
                 I_l = R
    
   
-    # Apply the color correction
+  # Apply the color correction
     I_l_cr = 255 * (I_l - np.min(I_l)) / (np.max(I_l) - np.min(I_l))
 
 
@@ -57,7 +57,7 @@ def MCLP(img):
 
         I_m, I_s = I_m_cr, I_s_cr
 
-    # Merge the color corrected channels
+  # Merge the color corrected channels
     img_ct = cv2.merge([I_s_cr, I_m_cr, I_l_cr]).astype(np.uint8)
     
     return img_ct
