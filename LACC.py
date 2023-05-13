@@ -78,9 +78,7 @@ def MCLP(img):
     I_l = cv2.normalize(I_l, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
     I_m = cv2.normalize(I_m, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
     I_s = cv2.normalize(I_s, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-    cv2.imwrite('I_l.jpg', I_l)
-    cv2.imwrite('I_m.jpg', I_m)
-    cv2.imwrite('I_s.jpg', I_s)
+
 
 
     # Merge the color corrected channels
