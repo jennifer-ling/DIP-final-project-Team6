@@ -17,3 +17,16 @@ DIP final project
   ```
   python test.py <input_imgname> <output_imgname>
   ```
+
+## Data set
+* UCCS: color correction
+* UIQS: visibility
+  * A,B,C,D,E: quality levels (in the descending order)
+* UIEB: variousity
+
+## Evaluation matric
+* Average gradient (AG): higher, better visibility
+* Edge intensity (EI): higher, better edge intensity
+* Patch-based contrast quality index (PCQI): higher, better visibility
+* Underwater image quality metric (UIQM): higher, better visual perception
+* Colorfulness contrast fog density index (CCF): higher, better visual perception
