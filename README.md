@@ -26,7 +26,11 @@ DIP final project
 
 ## Evaluation matric
 * Average gradient (AG): higher, better visibility
+  * https://ieeexplore.ieee.org/abstract/document/1626836, formula 10
 * Edge intensity (EI): higher, better edge intensity
 * Patch-based contrast quality index (PCQI): higher, better visibility
+  * https://ieeexplore.ieee.org/abstract/document/7289355, formula 9
 * Underwater image quality metric (UIQM): higher, better visual perception
+  * https://ieeexplore.ieee.org/abstract/document/7305804, formula 10
 * Colorfulness contrast fog density index (CCF): higher, better visual perception
+  * https://www.sciencedirect.com/science/article/pii/S0045790617324953, formula 13
