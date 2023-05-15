@@ -25,9 +25,9 @@ DIP final project
 * UIEB: variousity
 
 ## Evaluation matric
-* Average gradient (AG): higher, better visibility
-  * https://ieeexplore.ieee.org/abstract/document/1626836, formula 10
-* Edge intensity (EI): higher, better edge intensity
+* ~~Average gradient (AG): higher, better visibility~~
+  * ~~https://ieeexplore.ieee.org/abstract/document/1626836, formula 10~~
+* ~~Edge intensity (EI): higher, better edge intensity~~
 * Patch-based contrast quality index (PCQI): higher, better visibility
   * https://ieeexplore.ieee.org/abstract/document/7289355, formula 9
 * Underwater image quality metric (UIQM): higher, better visual perception
