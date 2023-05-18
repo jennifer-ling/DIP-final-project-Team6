@@ -4,7 +4,7 @@ import cv2
 import sys
 
 def ComputeWindowVarianceAndMean(image, window_size = 25, flags = [True, True, True]):
-	L_w = np.zeros((np.shape(image)[0], np.shape(image)[1], window_size**2));	
+	L_w = np.zeros((np.shape(image)[0], np.shape(image)[1], window_size**2), dtype = 'float32');	
 	half_window = int(window_size/2);
 	image_pad = np.pad(image, half_window, 'edge');
 	
@@ -25,6 +25,7 @@ def ComputeWindowVarianceAndMean(image, window_size = 25, flags = [True, True, T
 	L_min = np.min(L_w, axis=-1) if flags[2] else None;
 	
 	return L_w, u_b, var_b, L_max, L_min;
+	
 
 def LCE(l_channel, window_size = 25, beta = 2):
 	"""
