@@ -84,7 +84,7 @@ def MCLP(img):
     # Merge the color corrected channels
     color_channels = {color_s: I_s, color_m: I_m, color_l: I_l}
     img_ct = cv2.merge([color_channels['B'], color_channels['G'], color_channels['R']]).astype(np.uint8)
-    cv2.imwrite('img_ct.jpg', img_ct)
+    # cv2.imwrite('img_ct.jpg', img_ct)
     return img_ct
 
 def MAMGF(img_origin, img_ct):
@@ -101,7 +101,7 @@ def MAMGF(img_origin, img_ct):
     A_max_M = np.max([1 - img_origin[..., i] ** gamma for i in range(3)], axis=0)
 
     # Apply the color correction
-    cv2.imwrite('img_origin.jpg',img_origin)
+    # cv2.imwrite('img_origin.jpg',img_origin)
     D = img_origin - cv2.GaussianBlur(img_origin, (111, 111), 0)
     # D_normalized = cv2.normalize(D, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
     A_max_M_normalized = cv2.normalize(A_max_M, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
@@ -112,6 +112,6 @@ def MAMGF(img_origin, img_ct):
 
 
     I_cc_normalized = cv2.normalize(I_cc, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-    cv2.imwrite('I_cc.jpg', I_cc_normalized)
+    # cv2.imwrite('I_cc.jpg', I_cc_normalized)
 
     return I_cc.astype(np.uint8)

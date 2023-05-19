@@ -17,8 +17,7 @@ def getimg():
   outputname = "./result/" + parser.parse_args().outputimg
   return cv2.imread(inputname), outputname
 
-def MLLE(write_mode=False):
-  img, filename = getimg()
+def MLLE(img, filename, write_mode=False):
   img_ct = MCLP(img.copy())
   img_cr = MAMGF(img.copy(), img_ct.copy())
   l_channel, a_channel, b_channel = cv2.split(cv2.cvtColor(img_cr, cv2.COLOR_BGR2LAB))
@@ -33,5 +32,6 @@ def MLLE(write_mode=False):
 
 
 if __name__ == "__main__":
-  MLLE(write_mode=True)
+  img, filename = getimg()
+  MLLE(img, filename, write_mode=True)
 
