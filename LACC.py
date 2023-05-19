@@ -2,7 +2,6 @@ import numpy as np
 import cv2
 
 
-
 def MCLP(img):
     """
     input: original image
@@ -25,12 +24,16 @@ def MCLP(img):
             if color == "B":
                 I_s = B
                 color_s = "B"
+
             elif color == "G":
                 I_s = G
                 color_s = "G"
             else:
                 I_s = R
                 color_s = "R"
+            print("Is= ", color)
+            print("Is min= ", np.min(I_s))
+            print("Is max= ", np.max(I_s))
         elif idx == 1:  # Medium mean value
             if color == "B":
                 I_m = B
@@ -41,6 +44,7 @@ def MCLP(img):
             else:
                 I_m = R
                 color_m = "R"
+            print("Im= ", color)
         else:  # Largest mean value
             if color == "B":
                 I_l = B
@@ -51,40 +55,27 @@ def MCLP(img):
             else:
                 I_l = R
                 color_l = "R"
-
+            print("Il= ", color)
     # Apply the color correction
-
     while True:
 
         # Apply the color correction
-        # I_l = 255 * (I_l - np.min(I_l)) / (np.max(I_l) - np.min(I_l))
-        I_m = I_m + (np.mean(I_l) - np.mean(I_m)) * I_l
-        I_m = np.min(I_l)+(I_m-np.min(I_m))*(np.max(I_l)-np.min(I_l))/(np.max(I_m)-np.min(I_m))
-        # I_m = cv2.normalize(I_m, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-
-
-        I_s = I_s + (np.mean(I_l) - np.mean(I_s)) * I_l
-        I_s = np.min(I_l)+(I_s-np.min(I_s))*(np.max(I_l)-np.min(I_l))/(np.max(I_s)-np.min(I_s))
-        # I_s = cv2.normalize(I_s, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-
+        I_m = I_m + (np.mean(I_l) - np.mean(I_m)) * I_l/255
+        I_s = I_s + ((np.mean(I_l) - np.mean(I_s)) * I_l/255 + (np.mean(I_m) - np.mean(I_s)) * I_m/255)/2
         loss = abs(np.mean(I_l) - np.mean(I_m)) + abs(np.mean(I_l) - np.mean(I_s))
-        print("loss= ", loss)
         if loss < 1e-2:  # Check for convergence
             break
-    # print("Im=",I_m)
-    # print("Is=",I_s)
-
 
     I_l = cv2.normalize(I_l, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+    I_m = np.clip(I_m, 0, 255).astype(np.uint8)
+    I_s = np.clip(I_s, 0, 255).astype(np.uint8)
     I_m = cv2.normalize(I_m, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
     I_s = cv2.normalize(I_s, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
 
-
-
     # Merge the color corrected channels
     color_channels = {color_s: I_s, color_m: I_m, color_l: I_l}
-    img_ct = cv2.merge([color_channels['B'], color_channels['G'], color_channels['R']]).astype(np.uint8)
-    # cv2.imwrite('img_ct.jpg', img_ct)
+    img_ct = cv2.merge([color_channels['B'].astype(np.uint8), color_channels['G'].astype(np.uint8), color_channels['R'].astype(np.uint8)]).astype(np.uint8)
+    cv2.imwrite('img_ct.jpg', img_ct)
     return img_ct
 
 def MAMGF(img_origin, img_ct):
@@ -97,21 +88,14 @@ def MAMGF(img_origin, img_ct):
     img_ct = img_ct.astype(np.float32)
 
     # Apply the max attenuation map
-    gamma = 0.1
-    A_max_M = np.max([1 - img_origin[..., i] ** gamma for i in range(3)], axis=0)
+
+    gamma= 1.2
+    A_max_M = np.max([1 - (img[..., i]/255) ** gamma for i in range(3)], axis=0)
 
     # Apply the color correction
-    # cv2.imwrite('img_origin.jpg',img_origin)
-    D = img_origin - cv2.GaussianBlur(img_origin, (111, 111), 0)
-    # D_normalized = cv2.normalize(D, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-    A_max_M_normalized = cv2.normalize(A_max_M, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-    # cv2.imwrite('D.jpg', D_normalized)
-    # cv2.imwrite('A_max_M.jpg', A_max_M_normalized)
+    cv2.imwrite('img_origin.jpg',img_origin)
+    D = img_origin - cv2.GaussianBlur(img_origin, (21, 21), 1.5)
     I_cc = D + A_max_M[..., None] * img_ct + (1 - A_max_M[..., None]) * img_origin
-    # I_cc = D_normalized + A_max_M_normalized[..., None] * img_ct + (1 - A_max_M_normalized[..., None]) * img_origin
-
-
-    I_cc_normalized = cv2.normalize(I_cc, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-    # cv2.imwrite('I_cc.jpg', I_cc_normalized)
+    cv2.imwrite('I_cc.jpg', I_cc)
 
     return I_cc.astype(np.uint8)
