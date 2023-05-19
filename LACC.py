@@ -31,9 +31,7 @@ def MCLP(img):
             else:
                 I_s = R
                 color_s = "R"
-            print("Is= ", color)
-            print("Is min= ", np.min(I_s))
-            print("Is max= ", np.max(I_s))
+
         elif idx == 1:  # Medium mean value
             if color == "B":
                 I_m = B
@@ -44,7 +42,6 @@ def MCLP(img):
             else:
                 I_m = R
                 color_m = "R"
-            print("Im= ", color)
         else:  # Largest mean value
             if color == "B":
                 I_l = B
@@ -55,7 +52,6 @@ def MCLP(img):
             else:
                 I_l = R
                 color_l = "R"
-            print("Il= ", color)
     # Apply the color correction
     while True:
 
@@ -75,7 +71,6 @@ def MCLP(img):
     # Merge the color corrected channels
     color_channels = {color_s: I_s, color_m: I_m, color_l: I_l}
     img_ct = cv2.merge([color_channels['B'].astype(np.uint8), color_channels['G'].astype(np.uint8), color_channels['R'].astype(np.uint8)]).astype(np.uint8)
-    cv2.imwrite('img_ct.jpg', img_ct)
     return img_ct
 
 def MAMGF(img_origin, img_ct):
@@ -88,14 +83,10 @@ def MAMGF(img_origin, img_ct):
     img_ct = img_ct.astype(np.float32)
 
     # Apply the max attenuation map
-
     gamma= 1.2
     A_max_M = np.max([1 - (img[..., i]/255) ** gamma for i in range(3)], axis=0)
 
     # Apply the color correction
-    cv2.imwrite('img_origin.jpg',img_origin)
     D = img_origin - cv2.GaussianBlur(img_origin, (21, 21), 1.5)
     I_cc = D + A_max_M[..., None] * img_ct + (1 - A_max_M[..., None]) * img_origin
-    cv2.imwrite('I_cc.jpg', I_cc)
-
     return I_cc.astype(np.uint8)
