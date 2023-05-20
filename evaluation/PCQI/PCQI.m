@@ -34,6 +34,9 @@ function [mpcqi, pcqi_map]= PCQI(img1, img2, window, L)
 %========================================================================
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+img1=double(img1);
+img2=double(img2);
+
 if (nargin < 2 || nargin > 4)
    mpcqi = -Inf;
    pcqi_map = -Inf;
