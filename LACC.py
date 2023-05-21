@@ -84,7 +84,7 @@ def MAMGF(img_origin, img_ct):
 
     # Apply the max attenuation map
     gamma= 1.2
-    A_max_M = np.max([1 - (img[..., i]/255) ** gamma for i in range(3)], axis=0)
+    A_max_M = np.max([1 - (img_origin[..., i]/255) ** gamma for i in range(3)], axis=0)
 
     # Apply the color correction
     D = img_origin - cv2.GaussianBlur(img_origin, (21, 21), 1.5)
