@@ -118,4 +118,3 @@ function [D D_map] = FADE(I)
         D                           = Df/(Dff+1);                
         D_map                       = Df_map./(Dff_map+1);                
 end
-

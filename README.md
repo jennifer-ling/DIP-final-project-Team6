@@ -9,13 +9,13 @@ DIP final project
 * By default, the program will open `./testcase/<input_imgname>` and output image as `./result/<output_imgname>.png`
 
 ## Usage
-* debug mode (save img files during the process)
+* debug mode (modify one img, and save resulted img files during the process)
   ```
   python MLLE.py <input_imgname> <output_imgname>
   ```
-* testing mode (compute benchmark, and only save the final result) 
+* testing mode (compute benchmark, and only save the final results) 
   ```
-  python test.py <input_imgname> <output_imgname>
+  python test.py
   ```
 
 ## Data set
@@ -25,9 +25,10 @@ DIP final project
 * UIEB: variousity
 
 ## Evaluation matric
-* ~~Average gradient (AG): higher, better visibility~~
-  * ~~https://ieeexplore.ieee.org/abstract/document/1626836, formula 10~~
-* ~~Edge intensity (EI): higher, better edge intensity~~
+* Average gradient (AG): higher, better visibility
+  * https://ieeexplore.ieee.org/abstract/document/1626836, formula 13
+* Edge intensity (EI): higher, better edge intensity
+  * https://www.sciencedirect.com/science/article/pii/S1568494619305915, sobel count
 * Patch-based contrast quality index (PCQI): higher, better visibility
   * https://ieeexplore.ieee.org/abstract/document/7289355, formula 9
 * Underwater image quality metric (UIQM): higher, better visual perception

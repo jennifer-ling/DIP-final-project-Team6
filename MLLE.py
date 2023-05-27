@@ -13,8 +13,8 @@ def getimg():
   parser = argparse.ArgumentParser()
   parser.add_argument("inputimg")
   parser.add_argument("outputimg")
-  inputname = "./testcase/" + parser.parse_args().inputimg
-  outputname = "./result/" + parser.parse_args().outputimg
+  inputname = "testcase/" + parser.parse_args().inputimg
+  outputname = "result/" + parser.parse_args().outputimg
   return cv2.imread(inputname), outputname
 
 def MLLE(img, filename, write_mode=False):
@@ -33,5 +33,6 @@ def MLLE(img, filename, write_mode=False):
 
 if __name__ == "__main__":
   img, filename = getimg()
-  MLLE(img, filename, write_mode=True)
+  
+  cv2.imwrite("test.png",MLLE(img, filename, write_mode=True))
 
