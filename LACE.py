@@ -32,20 +32,20 @@ def LCE(l_channel, window_size = 25, beta = 2):
 	local color enhancement of L channel
 	return the enhanced L channel
 	"""
-	
+	eps = np.finfo('float').eps;
 	var_g = np.var(l_channel);	
 	L_w, u_b, var_b, L_max, L_min = ComputeWindowVarianceAndMean(l_channel, window_size, [True, True, True]);
 	
-	ratio = (np.ones(np.shape(var_b)) * var_g) / var_b;
+	ratio = (np.ones(np.shape(var_b)) * var_g) / (var_b + eps);
 	ratio[ratio > beta] = beta;
 	
 	L_EB = u_b + ratio * (l_channel.astype('float') - u_b);
-	Lnorm_EB = (L_EB - L_min) / (L_max - L_min);
+	Lnorm_EB = (L_EB - L_min) / (L_max - L_min + eps);
 	
 	L_EB_w, L_EB_u_b, _, _, _ = ComputeWindowVarianceAndMean(Lnorm_EB, window_size, [False, False, False]);
 	Lnorm_w, Lnorm_u_b, Lnorm_var_b, _, _ = ComputeWindowVarianceAndMean(Lnorm_EB, window_size, [True, False, False]);
 	
-	k = np.mean((Lnorm_w * L_EB_w) - np.expand_dims(Lnorm_u_b * L_EB_u_b, axis=-1), axis=-1) / Lnorm_var_b;
+	k = np.mean((Lnorm_w * L_EB_w) - np.expand_dims(Lnorm_u_b * L_EB_u_b, axis=-1), axis=-1) / (Lnorm_var_b + eps);
 	v = L_EB_u_b - k * Lnorm_u_b;
 	
 	Lgf_EB = k * L_EB + v;
@@ -60,9 +60,9 @@ def CB(a_channel, b_channel, window_size = 25):
 	return the enhanced a, b channel
 	like: return a_enhance, b_enhance
 	"""
-	
+	eps = np.finfo('float').eps;
 	means = [np.mean(a_channel), np.mean(b_channel)];
-	ratio_a = (means[1] - means[0]) / (means[0] + means[1]);
+	ratio_a = (means[1] - means[0]) / (means[0] + means[1] + eps);
 	ratio_b = -ratio_a;
 	
 	if ratio_a > 0:
@@ -90,5 +90,6 @@ if __name__ == "__main__":
 	result = cv2.cvtColor(img_lab, cv2.COLOR_LAB2BGR)
 	
 	cv2.imshow("result", result)
+	cv2.imwrite("result.png", result)
 	if(cv2.waitKey(0)==27):
 		cv2.destroyAllWindows()
