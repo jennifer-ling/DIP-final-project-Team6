@@ -13,9 +13,9 @@ DIP final project
   ```
   python MLLE.py <input_imgname> <output_imgname>
   ```
-* testing mode (compute benchmark, and only save the final results) 
+* testing mode (compute benchmark, and save it as txt. If `-d` is used, compute pictures in `testcase/demo/`) 
   ```
-  python test.py
+  python test.py -f <resultfilename> -s <sample size for each dataset> [-d]
   ```
 
 ## Data set
