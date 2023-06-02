@@ -1,22 +1,57 @@
 # DIP-final-project-Team6
 DIP final project
-
-## Parameters
-* `<input_imgname>` and `<output_imgname>` is required arugment. 
-
-* For example: `sample.png` for `<input_imgname>`, and `test` for `<output_imgname>` (no file extentesion needed)
-
-* By default, the program will open `./testcase/<input_imgname>` and output image as `./result/<output_imgname>.png`
+## Environment
+### Python
+* python: 3.10
+* matlabengine: 9.14.3
+* numpy
+* opencv-python
+* scipy
+### MATLAB
+* Deep Learning Toolbox
+* Image Processing Toolbox
+* Statistics and Machine Learning Toolbox
 
 ## Usage
-* debug mode (modify one img, and save resulted img files during the process)
+### Debug mode
+* Modify one image and save resulted image files during the process
+* Syntax
   ```
   python MLLE.py <input_imgname> <output_imgname>
   ```
+* Parameters
+  * `<input_imgname>` and `<output_imgname>` are required arugments. 
+  * No file extension needed for `<output_imgname>`
+* Example
+  ```
+  python MLLE.py input.png output
+  ```
+  * the program will open `./testcase/input.png` and output images as `./result/output_*.png`
+
 * testing mode (compute benchmark, and save it as txt. If `-d` is used, compute pictures in `testcase/demo/`) 
   ```
   python test.py -f <resultfilename> -s <sample size for each dataset> [-d]
   ```
+### Evaluation mode
+* Compute evaluation matrics, and save the result as text file
+* Syntax
+  ```
+  python test.py -f <result_file_name> -s <sample_size> [-d]
+  ```
+* Parameters
+  * If `-d` is used, compute pictures in `testcase/demo/` (`-s` is not used)
+  * Else, pictures in 'testcase/UIQS/', 'testcase/UIEB_raw/', 'testcase/UCCS/' will be randomly sampled. (`-s` is the sample size for each dataset) 
+  * No file extension needed for `<result_file_name>`
+* Example
+  ```
+  python test.py -f result -s 15
+  ```
+  * total 15 * 3 = 45 images are sampled, and the result is save as `./result.txt`
+  ```
+  python test.py -f result -d
+  ```
+  * computes pictures in `testcase/demo/`, and the result is save as `./result.txt`
+
 
 ## Data set
 * UCCS: color correction
