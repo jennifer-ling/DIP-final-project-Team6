@@ -28,10 +28,6 @@ DIP final project
   ```
   * the program will open `./testcase/input.png` and output images as `./result/output_*.png`
 
-* testing mode (compute benchmark, and save it as txt. If `-d` is used, compute pictures in `testcase/demo/`) 
-  ```
-  python test.py -f <resultfilename> -s <sample size for each dataset> [-d]
-  ```
 ### Evaluation mode
 * Compute evaluation matrics, and save the result as text file
 * Syntax
@@ -40,17 +36,17 @@ DIP final project
   ```
 * Parameters
   * If `-d` is used, compute pictures in `testcase/demo/` (`-s` is not used)
-  * Else, pictures in 'testcase/UIQS/', 'testcase/UIEB_raw/', 'testcase/UCCS/' will be randomly sampled. (`-s` is the sample size for each dataset) 
+  * Else, pictures in `testcase/UIQS/`, `testcase/UIEB_raw/`, `testcase/UCCS/` will be randomly sampled. (`-s` is the sample size for each dataset) 
   * No file extension needed for `<result_file_name>`
 * Example
   ```
   python test.py -f result -s 15
   ```
-  * total 15 * 3 = 45 images are sampled, and the result is save as `./result.txt`
+  * total 15 * 3 = 45 images are sampled, and the result is saved as `./result.txt`
   ```
   python test.py -f result -d
   ```
-  * computes pictures in `testcase/demo/`, and the result is save as `./result.txt`
+  * computes pictures in `testcase/demo/`, and the result is saved as `./result.txt`
 
 
 ## Data set
@@ -66,7 +62,10 @@ DIP final project
   * https://www.sciencedirect.com/science/article/pii/S1568494619305915, sobel count
 * Patch-based contrast quality index (PCQI): higher, better visibility
   * https://ieeexplore.ieee.org/abstract/document/7289355, formula 9
+  * Code reference: https://ece.uwaterloo.ca/~k29ma/codes/PCQI.zip
 * Underwater image quality metric (UIQM): higher, better visual perception
   * https://ieeexplore.ieee.org/abstract/document/7305804, formula 10
+  * Github reference: https://github.com/xahidbuffon/Deep_SESR/blob/master/utils/uiqm_utils.py
 * Colorfulness contrast fog density index (CCF): higher, better visual perception
   * https://www.sciencedirect.com/science/article/pii/S0045790617324953, formula 13
+  * Github reference: https://github.com/zhenglab/CCF
