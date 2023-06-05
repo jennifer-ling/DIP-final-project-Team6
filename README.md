@@ -43,6 +43,7 @@ DIP final project
   python test.py -f result -s 15
   ```
   * total 15 * 3 = 45 images are sampled, and the result is saved as `./result.txt`
+  * note that UIEB contains large images, it may consume upto 6GB memory and need about 30 miniutes to finish.
   ```
   python test.py -f result -d
   ```
