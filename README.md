@@ -1,5 +1,6 @@
 # DIP-final-project-Team6
-DIP final project
+Implementation of [Underwater Image Enhancement via Minimal Color Loss and Locally Adaptive Contrast Enhancement](https://ieeexplore.ieee.org/document/9788535).
+See details in `report.pdf`
 ## Environment
 ### Python
 * python: 3.10
